@@ -20,10 +20,6 @@ repo_gpgcheck=0
 gpgkey=https://${gg_pkg}/yum-key.gpg https://${gg_pkg}/rpm-package-key.gpg
 EOF
 
-# Set SELinux in permissive mode (effectively disabling it)
-setenforce 0
-sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
-
 # RHEL/CentOS 7 have reported traffic issues being routed incorrectly due to iptables bypassed
 cat <<EOF >  /etc/sysctl.d/k8s.conf
 net.bridge.bridge-nf-call-ip6tables = 1
@@ -32,12 +28,6 @@ EOF
 modprobe br_netfilter
 
 # local small dns & vagrant cannot parse and delivery shell code.
-echo "192.168.1.10 m-k8s" >> /etc/hosts
-for (( i=1; i<=$1; i++  )); do echo "192.168.1.10$i w$i-k8s" >> /etc/hosts; done
-
-# config DNS  
-cat <<EOF > /etc/resolv.conf
-nameserver 1.1.1.1 #cloudflare DNS
-nameserver 8.8.8.8 #Google DNS
-EOF
-
+echo "10.105.193.77 dev-ymaster-ncl.nfra.io dev-ymaster-ncl" >> /etc/hosts
+echo "10.105.192.78 dev-ycontainer001-ncl.nfra.io dev-ycontainer001-ncl" >> /etc/hosts
+echo "10.168.255.149 dev-ycontainer002-ncl.nfra.io dev-ycontainer002-ncl" >> /etc/hosts

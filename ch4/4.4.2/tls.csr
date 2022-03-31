@@ -9,7 +9,7 @@ ST = SEOUL
 L = SEOUL
 O = gilbut
 OU = Book_k8sInfra
-CN = 192.168.1.10
+CN = 10.105.193.77
 
 [v3_req]
 keyUsage = keyEncipherment, dataEncipherment
@@ -18,4 +18,4 @@ subjectAltName = @alt_names
 
 [alt_names]
 DNS.0 = m-k8s
-IP.0 = 192.168.1.10
+IP.0 = 10.105.193.77

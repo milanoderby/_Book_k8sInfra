@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
-jkopt1="--sessionTimeout=1440"
-jkopt2="--sessionEviction=86400"
-jvopt1="-Duser.timezone=Asia/Seoul"
-jvopt2="-Dcasc.jenkins.config=https://raw.githubusercontent.com/sysnet4admin/_Book_k8sInfra/main/ch5/5.3.1/jenkins-config.yaml"
+export jkopt1="--sessionTimeout=1440"
+export jkopt2="--sessionEviction=86400"
+export jvopt1="-Duser.timezone=Asia/Seoul"
+export jvopt2="-Dcasc.jenkins.config=https://raw.githubusercontent.com/sysnet4admin/_Book_k8sInfra/main/ch5/5.3.1/jenkins-config.yaml"
 
 helm install jenkins edu/jenkins \
 --set persistence.existingClaim=jenkins \
 --set master.adminPassword=admin \
---set master.nodeSelector."kubernetes\.io/hostname"=m-k8s \
+--set master.nodeSelector."kubernetes\.io/hostname"=dev-ymaster-ncl \
 --set master.tolerations[0].key=node-role.kubernetes.io/master \
 --set master.tolerations[0].effect=NoSchedule \
 --set master.tolerations[0].operator=Exists \
